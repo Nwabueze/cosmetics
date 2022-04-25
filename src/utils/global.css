@@ -90,7 +90,7 @@ body {font-family: system-ui; margin-left: 0px; margin-right: 0px; width: 100%; 
 .cart_footer { border-top: 1px solid gray; }
 .cart_titl_bt { font-size: 17px; font-weight: lighter; }
 
-
+/* backdrop effect */ 
 .backdrop { width: calc(100vw - 370px); height: 100vh; background-color: black; z-index: 100000; opacity: .5; position: fixed; top: 0px; left: 0px; }
 
 .item_buttons { gap: 15px; }
