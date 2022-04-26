@@ -127,7 +127,7 @@ body {font-family: system-ui; margin-left: 0px; margin-right: 0px; width: 100%; 
     .add_toCart { width: 150px;}
     .page_title_text1 {font-size: 30px;}
     .cart { width: 350px; }
-    .backdrop { width: calc(100vw - 360px);}
+    .backdrop { width: calc(100vw - 350px);}
 }
 
 @media only screen and (min-width: 768px) {
@@ -139,7 +139,10 @@ body {font-family: system-ui; margin-left: 0px; margin-right: 0px; width: 100%; 
     .add_toCart { width: 150px;}
     .page_title_text1 {font-size: 35px;}
     .cart { width: 350px; }
-    .backdrop { width: calc(100vw - 370px); }
+    .backdrop { width: calc(100vw - 350px); }
 }
 
 
+/*
+npm i @apollo/client @emotion/react @emotion/styled --force
+*/

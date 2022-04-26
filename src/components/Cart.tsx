@@ -50,7 +50,7 @@ const Cart: FC = () => {
   return (
     <div className={`cart bdg_dark cart_sidebar`} style={{display: cartDisplay}}>
       <div className='cart_title p_2 flex d_row'>
-          <div className='w_100p pt_1 pb_1' style={{borderRadius:'25px', border: '1px solid silver'}}>Your cart items: ({ countCart() }) </div>
+          <div className='w_100p pt_1 pb_1 tx_center' style={{borderRadius:'25px', border: '1px solid silver'}}>Your cart items: ({ countCart() }) </div>
           <div className='flex d_row flex_end'>
             <ClearIcon className='pointer' style={{position: 'relative',top:'10px', left:'7px'}} onClick={() => setDisplay('none')}/>
           </div>
@@ -86,7 +86,7 @@ const Cart: FC = () => {
       </div>
       <div className='cart_footer p_1 border'>
         {/*<Button variant="outlined" color="error" onClick={() => setDisplay('none')}>Close this</Button>*/}
-        <div className='cart_titl_bt p_1'>TOTAL AMOUNT: &nbsp;&nbsp; { currency } { `${ getBasketTotal() }`.match(/\./) ? getBasketTotal() : `${ getBasketTotal() }.00`  }</div>
+        <div className='cart_titl_bt p_1'>TOTAL AMOUNT: &nbsp;&nbsp; { basket[0]?.currency || '' } { `${ getBasketTotal() }`.match(/\./) ? getBasketTotal() : `${ getBasketTotal() }.00`  }</div>
       </div>
     </div>
   )

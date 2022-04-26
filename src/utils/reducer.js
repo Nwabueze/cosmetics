@@ -3,6 +3,7 @@ export const initialState = {
     cartDisplay: 'none',
     currency: 'USD',
     width: '100vw',
+    productsData: { currency: [], products: [], },
 };
 
 // Selector
@@ -44,6 +45,12 @@ const reducer = (state, action) => {
 
         case 'SET_WIDTH':
             return { ...state, width: action.width, }
+        
+        case 'SET_CURRENCY':
+            return { ...state, currency: action.currency, }
+
+        case 'PRODUCTS_DATA':
+            return { ...state, productsData: action.data, }
 
         default: 
             return state;
