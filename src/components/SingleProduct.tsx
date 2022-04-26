@@ -6,7 +6,7 @@ import { useStateValue } from '../utils/StateProvider';
 const SingleProduct = (props: { id: number, title: string, image_url: string, price: number, currency: string }) => {
   
   // eslint-disable-next-line
-    const [{ basket, }, dispatch ] = useStateValue();
+    const [{ basket, cartDisplay, }, dispatch ] = useStateValue();
 
     const setDisplay = (display: string) => {
         dispatch({ type: 'CART_DISPLAY', display: display });
@@ -30,7 +30,7 @@ const SingleProduct = (props: { id: number, title: string, image_url: string, pr
     }
 
   return (
-    <div className='singleProduct tx_center' key={`k_${props.id}`}>
+    <div className={`singleProduct tx_center ${ cartDisplay === 'block' ? ' under_cart ' : ' '  }`} key={`k_${props.id}`}>
       <div className='product_div centered'>
         <img className='product_image' src={props.image_url} alt={`${ props.title }`}/>
         <div className='product_title tx_center centered'>{ props.title }</div>

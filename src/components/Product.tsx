@@ -6,7 +6,6 @@ import Cart from './Cart';
 import { useStateValue } from '../utils/StateProvider';
 import { cartItems } from '../utils/interface';
 
-
 const PRODUCTS = gql`
     query GetProducts ($currency: Currency) {
         currency
@@ -26,23 +25,13 @@ const Products: FC = () => {
     const [{ basket, width, cartDisplay,}, dispatch] = useStateValue();
     const [displayData, setDisplayData] = React.useState({currency:[],products:[]});
     const [prevCurrency, setPrevCurrency] = React.useState(['USD', 'USD']);
-    //const { loading, error, data } = useQuery(PRODUCTS, { variables: { currency: activeCurrency } });
-    //const { data, previousData, error, } = useQuery(PRODUCTS, { variables: { currency: activeCurrency } });
-    // eslint-disable-next-line
-    const jsn = useQuery(PRODUCTS, { variables: { currency: activeCurrency } });
-    const data = jsn.data;
-    const error = jsn.error||'';
-    const loading = jsn.loading;
-    const previousData = jsn.previousData;
-    //console.log(jsn);
+    const { loading, error, data, previousData } = useQuery(PRODUCTS, { variables: { currency: activeCurrency } });
 
     React.useEffect(() => {
         if(data === undefined) {
           
           setDisplayData(previousData);
-          //console.log(displayData)
-          //localStorage.setItem('data', JSON.stringify(data));
-          //setCurrency(prevCurrency[prevCurrency.length-1]);
+          
           setPrevCurrency(() => {
             
             // In case the clicked the bad guy multiple times, prevCurrency 
@@ -53,9 +42,10 @@ const Products: FC = () => {
 
             return [prevCurrency[prevCurrency.length-1], activeCurrency,];
           });
+
+          console.log(prevCurrency)
         }else{
-          //dispatch({ type: 'PRODUCTS_DATA', data: data })
-          //console.log(productsData);
+         
           setDisplayData(data);
 
           setPrevCurrency([prevCurrency[prevCurrency.length-1], activeCurrency]);
@@ -67,19 +57,14 @@ const Products: FC = () => {
             // Remove all cart items with previous currency, only keep cart items which currency 
             // matches the latest currency choice
             
-            const newBasket = basket.filter((item: cartItems) => item.currency === activeCurrency);
+            const newBasket = basket.filter((item: cartItems) => item.currency === (error ? prevCurrency[0] : activeCurrency));
             dispatch({ type: 'DECREMENT_ITEM', basket: newBasket });
-            dispatch({ type: 'SET_CURRENCY', currency: error ? prevCurrency[0] : activeCurrency })
         }
-        //console.log(error);
-    }, [activeCurrency, prevCurrency, previousData, basket, dispatch, data]);
-
-    
+       
+    }, [activeCurrency, prevCurrency, previousData, basket, dispatch, error, data]);
     
     return (
-        
         <div style={{width: width}}>
-          
           {
             loading ? 
             <div className='products_grid row_gap'>
@@ -92,12 +77,12 @@ const Products: FC = () => {
             </div> :
             
             (
-    
            
             <div className='w_100p'>
                   <div className='products_top p_2'>
                     <div className='flex d_row gap flex_baseline'>
-                      <div className='p_1'>
+                      {/** hide some these text whenever the cart is showing */}
+                      <div className={`p_1 ${ cartDisplay === 'block' ? ' under_cart ' : ' ' }`}>
                         <div className='page_title_text1 thin_text text_left'>All Products</div>
                         <div className='page_title_text2 thin_text text_left'>A 360 look at Lumin</div>
                       </div>
@@ -115,6 +100,7 @@ const Products: FC = () => {
                     </div>
                   <div>
                 </div>
+                {/** Show custom error message whenever there is an error and display previous data instead */}
                 {error ? <div className='p_l w_100p'>We couldn't display products related to {activeCurrency}, we're showing you {prevCurrency[0]}</div>:''}
               </div>
               
@@ -135,16 +121,9 @@ const Products: FC = () => {
             
             }
           <Cart />
-          {/** Handles the blur effect whenever the cart side nav shows */}
-          {/*<div className='backdrop' style={{display: cartDisplay}}></div>*/}
         </div>
       )
     }
-
-
-
-    
-
 
 
 export default Products;

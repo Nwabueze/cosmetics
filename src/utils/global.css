@@ -128,6 +128,11 @@ body {font-family: system-ui; margin-left: 0px; margin-right: 0px; width: 100%; 
     .page_title_text1 {font-size: 30px;}
     .cart { width: 350px; }
     .backdrop { width: calc(100vw - 350px);}
+    .under_cart .nav_option { display: none; }
+    .under_cart .page_title_text1 {font-size: 0px;}
+    .under_cart .page_title_text2 {font-size: 0px;}
+
+    
 }
 
 @media only screen and (min-width: 768px) {
@@ -142,6 +147,8 @@ body {font-family: system-ui; margin-left: 0px; margin-right: 0px; width: 100%; 
     .backdrop { width: calc(100vw - 350px); }
 }
 
+.under_cart .product_image {width: 140px;}
+.under_cart .product_title {font-size: 13px; width: 60%;}
 
 /*
 npm i @apollo/client @emotion/react @emotion/styled --force

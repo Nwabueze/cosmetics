@@ -2,14 +2,11 @@ import React, { FC, } from 'react'
 import { useStateValue } from '../utils/StateProvider';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-//import { Button } from '@mui/material';
 import { cartItems } from '../utils/interface';
-//import { getBasketTotal } from '../utils/reducer';
 import ClearIcon from '@mui/icons-material/Clear';
 
 const Cart: FC = () => {
-  const [{ basket, cartDisplay, currency, }, dispatch] = useStateValue();
-  //console.log(basket)
+  const [{ basket, cartDisplay, }, dispatch] = useStateValue();
   
   const setDisplay = (display: string) => {
       dispatch({ type: 'CART_DISPLAY', display: display });
@@ -20,6 +17,7 @@ const Cart: FC = () => {
     return basket?.reduce((amount: number, item: cartItems) => (item.price * item.quantity) + amount, 0);
   }
   
+  /** Increment a product in cart by 1 */
   const incrementCart = (id: number) => {
     const index = basket.findIndex((basket: cartItems) => basket.id === id);
     const newBasket = [...basket];
@@ -29,6 +27,7 @@ const Cart: FC = () => {
     }
   }
   
+  // Deletes a product or decrements aproduct by 1
   const reduceCart = (id: number) => {
     const index = basket.findIndex((basket: cartItems) => basket.id === id);
     const newBasket = [...basket];
@@ -43,6 +42,7 @@ const Cart: FC = () => {
     }
   }
 
+  // Get the total number of items in the cart
   const countCart = (): number => {
     return basket?.reduce((count: number, item: cartItems) =>  item.quantity + count, 0)
   }
@@ -71,10 +71,10 @@ const Cart: FC = () => {
               <div className='item_buttons flex d_row p_1 pt_2'>
                 <div style={{paddingTop: '7px', width: '70px'}}>QTY: { item.quantity }</div>
                 <div className='flex d_row btn_div'>
-                <div className='plus_btn ml_2' onClick={() => incrementCart(item.id)}>
+                <div className='plus_btn ml_2 tx_center' onClick={() => incrementCart(item.id)}>
                     <AddIcon />
                 </div>
-                <div className='minus_btn' onClick={() => reduceCart(item.id)}>
+                <div className='minus_btn tx_center' onClick={() => reduceCart(item.id)}>
                   <RemoveIcon />
                 </div>
                 </div>
@@ -85,7 +85,6 @@ const Cart: FC = () => {
         }
       </div>
       <div className='cart_footer p_1 border'>
-        {/*<Button variant="outlined" color="error" onClick={() => setDisplay('none')}>Close this</Button>*/}
         <div className='cart_titl_bt p_1'>TOTAL AMOUNT: &nbsp;&nbsp; { basket[0]?.currency || '' } { `${ getBasketTotal() }`.match(/\./) ? getBasketTotal() : `${ getBasketTotal() }.00`  }</div>
       </div>
     </div>

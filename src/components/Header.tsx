@@ -6,7 +6,7 @@ import { cartItems } from '../utils/interface';
 
 const Header: FC = () => {
 
-    const [{ basket, width, }, dispatch] = useStateValue();
+    const [{ basket, width, cartDisplay }, dispatch] = useStateValue();
 
     const setDisplay = (display: string) => {
 
@@ -32,8 +32,9 @@ const Header: FC = () => {
                     <span>I</span>
                     <span>N</span>
                 </div>
-                <div className='nav_options flex d_row'>
-                    <div className='nav_option_div w_50 flex d_row flex_start nav_option_n1'>
+                {/** nav options below .under_cart will hide if the width is snall and the cart is showing */}
+                <div className={`nav_options flex d_row ${cartDisplay === 'block' ? ' under_cart ': ' '}`}>
+                    <div className={`nav_option_div w_50 flex d_row flex_start nav_option_n1`}>
                         <div className='nav_option'>Shop</div>
                         <div className='nav_option'>Learn</div>
                     </div>
